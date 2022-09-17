@@ -1,7 +1,11 @@
 <?php   
 
-    function siswa_create(){
-        // your codes here
+    function siswa_create_process(){
+
+        include __DIR__ . './connection.php';
+
+        header('location: ?page=siswa_create_process');
+
     }
 
     function siswa_read() {
@@ -42,7 +46,7 @@
         
         $get_id = $_GET['id'];
         
-        $sql = "SELECT * FROM ekskul WHERE id=$get_id";
+        $sql = "SELECT * FROM ekskul WHERE id=$gt_id";
 
         $result = $conn->query($sql);
 

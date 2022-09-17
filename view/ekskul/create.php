@@ -36,40 +36,45 @@
 
                         <div class="card-body">
 
-                            <form>
+                            <?php 
+                                if(isset($_GET['action']) && $_GET['action'] == 'process'){
+
+                                    $judul = $_POST['judul'];
+                                    $keterangan = $_POST['keterangan'];
+                                    
+                                    include __DIR__ . '../../../config/connection.php';
+
+                                    $sql = "INSERT INTO ekskul (judul, keterangan)
+                                    VALUES ('$judul', '$keterangan')";
+
+                                    if($conn->query($sql) === TRUE){
+                                        // echo "Sucess!";
+                                        header('location: ?menu==ekskul&page=read')
+                                    } else {
+                                        echo "Failed!";
+                                    }
+                                }
+                            ?>
+
+                            <form action="?menu=ekskul&page=create&action=process" method="post">
 
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <img src="./assets/img/user-empty.png" alt="Picture" class="img img-thumbnail" style="width: 100px;">
-                                        
-                                        <label for="nama-lengkap" class="form-label d-block mt-2">Gambar</label>
-                                        <input type="file" class="form-control form-control-lg">
+                                        <label for="judul" class="form-label">Judul</label>
+                                        <input type="text" name="judul" class="form-control form-control-lg" placeholder="Tulis judul...">
                                     </li>
                                     <li class="list-group-item">
-                                        <label for="nama-lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama-lengkap" class="form-control form-control-lg" placeholder="Tulis nama lengkap...">
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label for="alamat-email" class="form-label">Alamat Email</label>
-                                        <input type="mail" name="alamat-email" class="form-control form-control-lg" placeholder="Tulis alamat email...">
+                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <input type="text" name="keterangan" class="form-control form-control-lg" placeholder="Tulis keterangan...">
                                         </span>
                                     </li>
                                     <li class="list-group-item">
-                                        <label for="jenis-kelmin" class="form-label">Jenis Kelamin</label>
-                                        <select name="jenis-kelmin" id="" class="form-select form-select-lg">
-                                            <option selected>Pilih</option>
-                                            <option value="Laki-Laki">Laki-Laki</option>
-                                            <option value="Perempuan">Perempuan</option>
-                                        </select>
+                                        <button type="submit" class="btn btn-lg btn-primary w-100"><i class="fa-solid fa-plus-square me-2"></i> Create</button>
                                     </li>
                                 </ul>
 
                             </form>
 
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-lg btn-primary w-100"><i class="fa-solid fa-plus-square me-2"></i> Create</button>
                         </div>
 
                     </div>
